@@ -28,6 +28,11 @@ namespace PeopleManager.Ui.Mvc.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            var organization = _dbContext.Organizations.ToList();
+
+            ViewBag.Organizations = organization;
+            //ViewData["Organizations"] = organization;
+
             return View();
         }
 
@@ -51,8 +56,12 @@ namespace PeopleManager.Ui.Mvc.Controllers
             {
                 return RedirectToAction("Index");
             }
-            
-            return View(person);
+
+            var organization = _dbContext.Organizations.ToList();
+
+            ViewBag.Organizations = organization;
+
+			return View(person);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -69,6 +78,7 @@ namespace PeopleManager.Ui.Mvc.Controllers
             dbPerson.FirstName = person.FirstName;
             dbPerson.LastName = person.LastName;
             dbPerson.Email = person.Email;
+            dbPerson.OrganizationId = person.OrganizationId;
 
             _dbContext.SaveChanges();
 
