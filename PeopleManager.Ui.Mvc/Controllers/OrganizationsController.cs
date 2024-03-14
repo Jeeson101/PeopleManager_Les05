@@ -68,5 +68,31 @@ namespace PeopleManager.Ui.Mvc.Controllers
 
             return RedirectToAction("Index");
         }
-    }
+
+		[HttpGet]
+		public IActionResult Delete([FromRoute] int id)
+		{
+			var organization = _dbContext.Organizations
+				.FirstOrDefault(p => p.Id == id);
+
+			return View(organization);
+		}
+
+		[HttpPost("/[controller]/Delete/{id:int?}"), ValidateAntiForgeryToken]
+		public IActionResult DeleteConfirmed(int id)
+		{
+			var organization = _dbContext.Organizations
+				.FirstOrDefault(p => p.Id == id);
+
+			if (organization is null)
+			{
+				return RedirectToAction("Index");
+			}
+
+			_dbContext.Organizations.Remove(organization);
+			_dbContext.SaveChanges();
+
+			return RedirectToAction("Index");
+		}
+	}
 }

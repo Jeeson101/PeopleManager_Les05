@@ -5,5 +5,23 @@
     <td>@Model.Description</td>
     <td>
         <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+        <button class="btn btn-danger"
+                data-bs-toggle="modal"
+                data-bs-target="#deleteModal"
+                data-id="@Model.Id"
+                data-mode="delete">
+            Delete with modal
+        </button>
     </td>
+@*     <td>
+        @if (Model.Organization is not null)
+        {
+            @Model.Organization.Name
+        }
+        else
+        {
+            @: No Organization
+        }
+    </td> *@
 </tr>

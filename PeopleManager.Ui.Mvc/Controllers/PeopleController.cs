@@ -84,8 +84,8 @@ namespace PeopleManager.Ui.Mvc.Controllers
             return View(person);
         }
 
-        [HttpPost("/[controller]/Delete/{id:int}"), ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed([FromRoute] int id)
+        [HttpPost("/[controller]/Delete/{id:int?}"), ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
         {
             var person = _dbContext.People
                 .FirstOrDefault(p => p.Id == id);
